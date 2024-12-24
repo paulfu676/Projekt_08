@@ -1,0 +1,378 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="room_with_door_world">
+      <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="libgz-sim-sensors-system.so"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre</render_engine>
+    </plugin>
+    <plugin
+      filename="libgz-sim-user-commands-system.so"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="libgz-sim-scene-broadcaster-system.so"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    
+    <model name="room_with_door">
+      <pose>0 0 0 0 0 0</pose>
+      <static>true</static>
+      <!-- Floor -->
+      <link name="floor">
+        <pose>0 0 0 0 0 0</pose>
+        <collision name="floor_collision">
+          <geometry>
+            <plane>
+              <normal>0.0 0.0 1</normal>
+              <size>9 6.55 0.1</size> <!-- Length, width, thickness -->
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="floor_visual">
+          <geometry>
+            <plane>
+              <normal>0.0 0.0 1</normal>
+              <size>9 6.55 0.1</size> <!-- Length, width, thickness -->
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      
+      <!-- Wall 1 -->
+      <link name="wall1">
+        <pose>0 -3.275 1.915 0 0 0</pose>
+        <collision name="wall1_collision">
+          <geometry>
+            <box>
+              <size>9 0.1 3.83</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="wall1_visual">
+          <geometry>
+            <box>
+              <size>9 0.1 3.83</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      
+      <!-- Wall 2 -->
+      <link name="wall2">
+        <pose>0 3.275 1.915 0 0 0</pose>
+        <collision name="wall2_collision">
+          <geometry>
+            <box>
+              <size>9 0.1 3.83</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="wall2_visual">
+          <geometry>
+            <box>
+              <size>9 0.1 3.83</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      
+       
+      <!-- Wall 3 (with door) -->
+        <link name="wall3">
+         <pose>-4.5 0 1.915 0 0 0</pose>
+        
+        <!-- Left part of the wall -->
+        <collision name="wall1_left_collision">
+          <geometry>
+            <box>
+              <size>0.1 1.094 3.83</size> <!-- Left of the door -->
+            </box>
+          </geometry>
+          <pose>0 2.728 0 0 0 0</pose>
+        </collision>
+        <visual name="wall1_left_visual">
+          <geometry>
+            <box>
+              <size>0.1 1.094 3.83</size>
+            </box>
+          </geometry>
+          <pose>0 2.728 0 0 0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+        </visual>
+        
+        <!-- Right part of the wall -->
+        <collision name="wall1_right_collision">
+          <geometry>
+            <box>
+              <size>0.1 3.276 3.83</size> <!-- Right of the door -->
+            </box>
+          </geometry>
+          <pose>0 -1.5 0 0 0 0</pose>
+        </collision>
+        <visual name="wall1_right_visual">
+          <geometry>
+            <box>
+              <size>0.1 3.726 3.83</size>
+            </box>
+          </geometry>
+          <pose>0 -1.5 0 0 0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      
+      <!-- Wall 4 -->
+      <link name="wall4">
+        <pose>4.5 0 1.915 0 0 0</pose>
+        <collision name="wall4_collision">
+          <geometry>
+            <box>
+              <size>0.1 6.55 3.83</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="wall4_visual">
+          <geometry>
+            <box>
+              <size>0.1 6.55 3.83</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      
+    </model>
+
+    <model name="item_Arbeitstisch_1">
+    <static>true</static>
+  <!-- Position the table in the room -->
+  <pose>3.59 2.88 0.93 -1.74 1.57 2.96</pose>
+  
+  <!-- Define the link for the table -->
+  <link name="table_link">
+  
+    <!-- Visual representation of the table -->
+    <visual name="table_visual">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+        <material>
+          <ambient>1.0 0.647 0.00 0.5</ambient>  
+          <diffuse>1.0 0.647 0.00 0.5</diffuse> 
+          <specular>0.5 0.5 0.5 0.5</specular>
+          <emissive>0.6 0.3 0.1 1.0</emissive> 
+        </material>
+    </visual>
+
+    <!-- Collision representation of the table -->
+    <collision name="table_collision">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+    </collision>
+  </link>
+</model>
+
+    <model name="item_Arbeitstisch_2">
+    <static>true</static>
+  <!-- Position the table in the room -->
+  <pose>1.26 2.90 0.93 -1.74 1.57 2.96</pose>
+  
+  <!-- Define the link for the table -->
+  <link name="table_link">
+  
+    <!-- Visual representation of the table -->
+    <visual name="table_visual">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+        <material>
+          <ambient>1.0 0.647 0.00 0.5</ambient>  
+          <diffuse>1.0 0.647 0.00 0.5</diffuse> 
+          <specular>0.5 0.5 0.5 0.5</specular>
+          <emissive>0.6 0.3 0.1 1.0</emissive> 
+        </material>
+    </visual>
+
+    <!-- Collision representation of the table -->
+    <collision name="table_collision">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+    </collision>
+  </link>
+</model>
+      
+    <model name="item_Arbeitstisch_3">
+    <static>true</static>
+  <!-- Position the table in the room -->
+  <pose>1.33 0.51 0.93 -1.74 1.57 2.96</pose>
+  
+  <!-- Define the link for the table -->
+  <link name="table_link">
+  
+    <!-- Visual representation of the table -->
+    <visual name="table_visual">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+        <material>
+          <ambient>1.0 0.647 0.00 0.5</ambient>  
+          <diffuse>1.0 0.647 0.00 0.5</diffuse> 
+          <specular>0.5 0.5 0.5 0.5</specular>
+          <emissive>0.6 0.3 0.1 1.0</emissive> 
+        </material>
+    </visual>
+
+    <!-- Collision representation of the table -->
+    <collision name="table_collision">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+    </collision>
+  </link>
+</model>
+
+    <model name="item_Arbeitstisch_4">
+    <static>true</static>
+  <!-- Position the table in the room -->
+  <pose>1.95 -2.84 0.93 1.39 1.57 2.96</pose>
+  
+  <!-- Define the link for the table -->
+  <link name="table_link">
+  
+    <!-- Visual representation of the table -->
+    <visual name="table_visual">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+        <material>
+          <ambient>1.0 0.647 0.00 0.5</ambient>  
+          <diffuse>1.0 0.647 0.00 0.5</diffuse> 
+          <specular>0.5 0.5 0.5 0.5</specular>
+          <emissive>0.6 0.3 0.1 1.0</emissive> 
+        </material>
+    </visual>
+
+    <!-- Collision representation of the table -->
+    <collision name="table_collision">
+      <geometry>
+        <mesh>
+          <uri>//home/h1fu/meshes/item_Arbeitstisch_1.stl</uri> <!-- Adjusted path -->
+          <scale>0.001 0.001 0.001</scale>
+        </mesh>
+      </geometry>
+    </collision>
+  </link>
+</model>
+
+    <actor name="actor_walking">
+      <skin>
+        <filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name='walk'>
+        <filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/walk.dae</filename>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.000000</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walk">
+          <waypoint>
+            <time>0</time>
+            <pose>-2.5 1 1.0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>4</time>
+            <pose>2.5 1 1.0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>6</time>
+            <pose>2.5 -1 1.0 0 0 -1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>10</time>
+            <pose>-2.5 -1 1.0 0 0 -3.142</pose>
+          </waypoint>
+          <waypoint>
+            <time>12</time>
+            <pose>-2.5 1 1.0 0 0 1.57</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+  </world>
+</sdf>
